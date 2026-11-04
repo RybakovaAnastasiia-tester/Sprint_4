@@ -76,14 +76,15 @@ public class OrderPage {
 
     // Ввод и выбор станции метро
     public void setMetro(String metro) {
-        // Вводим первые 5 символов названия станции, если длина меньше, то берём её
-        String searchText = metro.substring(0, Math.min(5, metro.length()));
-        driver.findElement(metroField).sendKeys(searchText);
+        // Открываем список станций метро
+        driver.findElement(metroField).click();
 
+        // Находим нужную станцию
         By metroOption = By.xpath(
                 "//li[@role='menuitem']//button[.//div[text()='" + metro + "']]"
         );
 
+        // Ожидаем появления станции и выбираем её
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.elementToBeClickable(metroOption)).click();
     }
